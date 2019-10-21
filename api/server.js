@@ -10,7 +10,8 @@ const cors = require('cors')
 const logger = require('./middleware/logger')
 
 // Routes
-const userRouter = require('./routes/users/users-router.js')
+const userRouter = require('./routes/users/users-router.js');
+const authRouter = require('./routes/auth/auth-router.js');
 
 // Function Invocation
 server.use(helmet())
@@ -20,6 +21,6 @@ server.use(logger);
 
 // Routes Invocation
 server.use('/api/users', userRouter)
-
+server.use('/api/auth', authRouter)
 
 module.exports = server;
