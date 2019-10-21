@@ -8,6 +8,7 @@ const cors = require('cors')
 
 // Middleware
 const logger = require('./middleware/logger')
+const authentication = require('./middleware/authenticate.js')
 
 // Routes
 const userRouter = require('./routes/users/users-router.js');
@@ -20,7 +21,7 @@ server.use(express.json())
 server.use(logger);
 
 // Routes Invocation
-server.use('/api/users', userRouter)
 server.use('/api/auth', authRouter)
+server.use('/api/users', authentication, userRouter)
 
 module.exports = server;

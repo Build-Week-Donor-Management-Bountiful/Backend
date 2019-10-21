@@ -7,7 +7,7 @@ const Users = require('../users/users-model.js')
 const bcrypt = require('bcryptjs')
 
 // Middleware needed
-
+const generateToken = require('../../middleware/tokenmaker.js');
 
 router.post('/register', (req, res) => {
     let user = req.body
@@ -16,7 +16,9 @@ router.post('/register', (req, res) => {
 
     Users.add(user)
     .then(user => {
-        res.status(201).json({message: "User created!", user})
+        console.log(user)
+        const token = generateToken(user)
+        res.status(201).json({message: "User created!", user, token})
     })
     .catch(err => {
         console.log('Route: Auth: Error in registering new User', err)
@@ -27,14 +29,18 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     let {username, password} = req.body
     Users.findBy({username})
-    .first()
     .then(user => {
+        console.log(user)
         if (user && bcrypt.compareSync(password, user.password)) {
+            const token = generateToken(user)
             const id = user.id
             res.status(200).json({
                 message: `Welcome ${user.username}`,
-                id
+                id,
+                token
             })
+        } else {
+            res.status(400).json({message: "Invalid credentials!"})
         }
     })
     .catch(err => {

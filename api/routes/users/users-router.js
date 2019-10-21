@@ -14,11 +14,8 @@ router.get('/', (req, res) => {
 })
 
 router.get('/user', (req, res) => {
-    const {username} = req.body
-    req.user = username
-    const user = req.user
-    console.log(user)
-    Users.findBy({user})
+    const username = req.decoded
+    Users.findBy({username})
     .then(users => {
         res.status(200).json(users)
     })
