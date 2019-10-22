@@ -22,7 +22,7 @@ router.post('/register', (req, res) => {
     })
     .catch(err => {
         console.log('Route: Auth: Error in registering new User', err)
-        res.status(500).json(err)
+        res.status(500).json({message:'Route: Users: Error in registering a new User', err})
     })
 })
 
@@ -45,7 +45,7 @@ router.post('/login', (req, res) => {
     })
     .catch(err => {
         console.log('Route: Auth: Error in logging in user', err)
-        res.status(500).json(err)
+        res.status(500).json({message:'Route: Users: Error in loggin in a user', err})
     })
 })
 

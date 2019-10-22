@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         console.log('Route: Users: Error in get all', err)
-        res.status(500).json(err)
+        res.status(500).json({message:'Route: Users: Error in get all', err})
     })
 })
 
@@ -21,7 +21,7 @@ router.get('/user', (req, res) => {
     })
     .catch(err => {
         console.log('Route: Users: Error in get by filter', err)
-        res.status(500).json(err)
+        res.status(500).json({message:'Route: Users: Error in get by filter', err})
     })
 })
 
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
     })
     .catch(err => {
         console.log('Route: Users: Error in get by ID', err)
-        res.status(500).json(err)
+        res.status(500).json({message:'Route: Users: Error in get by filter', err})
     })
 })
 
@@ -47,7 +47,7 @@ router.put('/:id', (req, res) => {
     })
     .catch(err => {
         console.log('Route: Users: Error in put', err)
-        res.status(500).json(err)
+        res.status(500).json({message:'Route: Users: Error in put/update', err})
     })
 })
 
@@ -58,8 +58,8 @@ router.delete('/:id', (req, res) => {
         res.status(200).json(user)
     })
     .catch(err => {
-        console.log('Route: Users: Error in put', err)
-        res.status(500).json(err)
+        console.log('Route: Users: Error in delete', err)
+        res.status(500).json({message:'Route: Users: Error in delete', err})
     })
 })
 
