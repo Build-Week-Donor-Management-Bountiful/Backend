@@ -17,6 +17,7 @@ function add(user) {
         return db('users')
         .where({id})
         .first()
+        .select('users.id', 'users.username')
     })
 }
 
@@ -29,7 +30,6 @@ function findBy(filter) {
     return db('users')
     .where(filter)
     .first()
-    .select('users.id', 'users.username')
 }
 
 function findById(id) {
