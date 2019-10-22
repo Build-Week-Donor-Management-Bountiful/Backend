@@ -16,7 +16,6 @@ router.post('/register', (req, res) => {
 
     Users.add(user)
     .then(user => {
-        console.log(user)
         const token = generateToken(user)
         res.status(201).json({message: "User created!", user, token})
     })
@@ -30,7 +29,6 @@ router.post('/login', (req, res) => {
     let {username, password} = req.body
     Users.findBy({username})
     .then(user => {
-        console.log(user)
         if (user && bcrypt.compareSync(password, user.password)) {
             const token = generateToken(user)
             const id = user.id

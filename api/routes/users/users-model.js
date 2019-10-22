@@ -43,13 +43,27 @@ function update(id, changes) {
     return db('users')
     .where({id})
     .update(changes)
-    .then(ids => {
-        console.log(ids)
+    .then(() => {
+        if (changes.id) {
+            return db('users')
+            .where('id', changes.id)
+            .first()
+        } else {
+            return db('users')
+            .where({id})
+            .first()
+        }
     })
 }
 
 function remove(id) {
     return db('users')
     .where({id})
-    .delete()
+    .first()
+    .then(() => {
+        return db('users')
+        .where({id})
+        .first()
+        .delete()
+    })
 }

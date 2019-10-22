@@ -23,5 +23,4 @@ server.use(logger);
 // Routes Invocation
 server.use('/api/auth', authRouter)
 server.use('/api/users', authentication, userRouter)
-
 module.exports = server;
