@@ -17,7 +17,7 @@ router.get('/user', (req, res) => {
     const username = req.decoded
     Users.findBy({username})
     .then(users => {
-        res.status(200).json(users)
+        res.status(200).json({id: users.id, username:users.username})
     })
     .catch(err => {
         console.log('Route: Users: Error in get by filter', err)
@@ -27,7 +27,6 @@ router.get('/user', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    console.log(id)
     Users.findById(id)
     .then(users => {
         res.status(200).json(users)
