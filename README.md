@@ -1,5 +1,7 @@
 # Backend
 
+IMPORTANT NOTE: You will need to log in as a user every 24 hours due to the state of the tokens.
+
 ## Utilizing This Backend
 
 The link you will need = https://donor-backend-mw.herokuapp.com/
@@ -123,6 +125,7 @@ The database will return an object like this:
 {
     "id": id of the user you updated (you cannot change a user's id)
     "username": if you changed the username, this will be here
+    "token": A brand new token containing information about the user, please update the token in localStorage with this information.
 }
 
 ### Remove a User from the Database (DELETE Request)
