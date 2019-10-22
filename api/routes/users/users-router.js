@@ -4,6 +4,8 @@ const Users = require('./users-model.js')
 
 const bcrypt = require('bcryptjs')
 
+const generateToken = require('../../middleware/tokenmaker.js');
+
 router.get('/', (req, res) => {
     Users.find()
     .then(users => {
@@ -32,7 +34,11 @@ router.get('/:id', (req, res) => {
     const id = req.params.id
     Users.findById(id)
     .then(users => {
-        res.status(200).json(users)
+        if (!users) {
+            res.status(404).json({message: "User does not exist!"})
+        } else {
+            res.status(200).json(users)
+        }
     })
     .catch(err => {
         console.log('Route: Users: Error in get by ID', err)
@@ -56,7 +62,8 @@ router.put('/:id', (req, res) => {
                 changes.password = hash
                 Users.update(id, changes)
                 .then(user => {
-                    res.status(200).json({id: user.id, username: user.username})
+                    const token = generateToken(user)
+                    res.status(200).json({id: user.id, username: user.username, token})
                 })
                 .catch(err => {
                     console.log('Route: Users: Error in put', err)
@@ -65,7 +72,8 @@ router.put('/:id', (req, res) => {
             } else {
                 Users.update(id, changes)
                 .then(user => {
-                    res.status(200).json({id: user.id, username: user.username})
+                    const token = generateToken(user)
+                    res.status(200).json({id: user.id, username: user.username, token})
                 })
                 .catch(err => {
                     console.log('Route: Users: Error in put', err)
